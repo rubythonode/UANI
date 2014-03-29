@@ -23,6 +23,9 @@ BOOT({
 					init : function(cls, inner, self) {'use strict';
 
 						var
+						// wrapper
+						wrapper,
+
 						// fade
 						fade,
 
@@ -32,17 +35,34 @@ BOOT({
 						// slide up
 						slideUp,
 
+						// slide left
+						slideLeft,
+
+						// slide right
+						slideRight,
+
+						// slide right2
+						slideRight2,
+
 						// close.
 						close;
+
+						wrapper = DIV({
+							style : {
+								width : 400,
+								margin : 'auto',
+								backgroundColor : 'green'
+							}
+						}).appendTo(BODY);
 
 						fade = DIV({
 							style : {
 								fontSize : 50
 							},
-							children : [SPAN({
+							children : [P({
 								children : ['FADE!!!']
 							})]
-						}).appendTo(BODY);
+						}).appendTo(wrapper);
 
 						UANI.FADE_OUT({
 							node : fade,
@@ -59,10 +79,10 @@ BOOT({
 							style : {
 								fontSize : 50
 							},
-							children : [SPAN({
+							children : [P({
 								children : ['SLIDE UP!!!']
 							})]
-						}).appendTo(BODY);
+						}).appendTo(wrapper);
 
 						UANI.SLIDE_UP_HIDE({
 							node : slideUp,
@@ -79,10 +99,10 @@ BOOT({
 							style : {
 								fontSize : 50
 							},
-							children : [SPAN({
+							children : [P({
 								children : ['SLIDE DOWN!!!']
 							})]
-						}).appendTo(BODY);
+						}).appendTo(wrapper);
 
 						UANI.SLIDE_DOWN_HIDE({
 							node : slideDown,
@@ -91,6 +111,84 @@ BOOT({
 
 							UANI.SLIDE_DOWN_SHOW({
 								node : slideDown,
+								duration : 1
+							});
+						});
+
+						slideLeft = DIV({
+							style : {
+								fontSize : 50
+							},
+							children : [P({
+								children : ['SLIDE LEFT!!!']
+							})]
+						}).appendTo(wrapper);
+
+						UANI.SLIDE_LEFT_HIDE({
+							node : slideLeft,
+							duration : 1
+						}, function() {
+
+							UANI.SLIDE_LEFT_SHOW({
+								node : slideLeft,
+								duration : 1
+							});
+						});
+
+						slideRight = DIV({
+							style : {
+								fontSize : 50
+							},
+							children : [P({
+								children : ['SLIDE RIGHT!!!']
+							})]
+						}).appendTo(wrapper);
+
+						UANI.SLIDE_RIGHT_HIDE({
+							node : slideRight,
+							duration : 1
+						}, function() {
+
+							UANI.SLIDE_RIGHT_SHOW({
+								node : slideRight,
+								duration : 1
+							});
+						});
+
+						slideRight2 = DIV({
+							style : {
+								marginLeft : -400,
+								fontSize : 50,
+								width : 800
+							},
+							children : [DIV({
+								style : {
+									width : 400,
+									background : 'red',
+									flt : 'left'
+								},
+								children : [P({
+									children : ['SLIDE']
+								})]
+							}), DIV({
+								style : {
+									width : 400,
+									background : 'blue',
+									flt : 'left'
+								},
+								children : [P({
+									children : ['SLIDE']
+								})]
+							}), CLEAR_BOTH()]
+						}).appendTo(wrapper);
+
+						UANI.SLIDE_LEFT_SHOW({
+							node : slideRight2,
+							duration : 1
+						}, function() {
+
+							UANI.SLIDE_LEFT_HIDE({
+								node : slideRight2,
 								duration : 1
 							});
 						});
