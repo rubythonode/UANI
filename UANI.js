@@ -23,43 +23,75 @@ BOOT({
 					init : function(cls, inner, self) {'use strict';
 
 						var
-						// div
-						div,
+						// fade
+						fade,
+
+						// slide down
+						slideDown,
+
+						// slide up
+						slideUp,
 
 						// close.
 						close;
 
-						div = DIV({
+						fade = DIV({
 							style : {
 								fontSize : 50
 							},
 							children : [SPAN({
-								children : ['Hello UPPERCASE!']
+								children : ['FADE!!!']
 							})]
 						}).appendTo(BODY);
 
 						UANI.FADE_OUT({
-							node : div,
+							node : fade,
 							duration : 1
 						}, function() {
 
 							UANI.FADE_IN({
-								node : div,
+								node : fade,
 								duration : 1
-							}, function() {
+							});
+						});
 
-								UANI.SCROLL_DOWN({
-									node : div,
-									duration : 1
-								}, function() {
+						slideUp = DIV({
+							style : {
+								fontSize : 50
+							},
+							children : [SPAN({
+								children : ['SLIDE UP!!!']
+							})]
+						}).appendTo(BODY);
 
-									UANI.SCROLL_UP({
-										node : div,
-										duration : 1
-									}, function() {
-										alert('OLLEH!');
-									});
-								});
+						UANI.SLIDE_UP_HIDE({
+							node : slideUp,
+							duration : 1
+						}, function() {
+
+							UANI.SLIDE_UP_SHOW({
+								node : slideUp,
+								duration : 1
+							});
+						});
+
+						slideDown = DIV({
+							style : {
+								fontSize : 50
+							},
+							children : [SPAN({
+								children : ['SLIDE DOWN!!!']
+							})]
+						}).appendTo(BODY);
+
+						UANI.SLIDE_DOWN_HIDE({
+							node : slideDown,
+							duration : 1
+						}, function() {
+
+							UANI.SLIDE_DOWN_SHOW({
+								node : slideDown,
+								duration : 1
 							});
 						});
 

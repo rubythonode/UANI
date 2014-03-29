@@ -1,4 +1,4 @@
-UANI.SCROLL_DOWN = METHOD({
+UANI.SLIDE_DOWN_SHOW = METHOD({
 
 	run : function(m, params, callback) {'use strict';
 		//REQUIRED: params
@@ -15,8 +15,15 @@ UANI.SCROLL_DOWN = METHOD({
 		// dom
 		dom = params.node.getDom(),
 
+		// height
+		height = dom.getHeight(),
+
 		// params
 		params = COPY_DATA(params);
+
+		if (height === 0) {
+			height = UANI.SLIDE_DOWN_HIDE.savedHeights[dom.id];
+		}
 
 		params.keyframes = KEYFRAMES({
 			from : {
@@ -24,7 +31,7 @@ UANI.SCROLL_DOWN = METHOD({
 				overflow : 'hidden'
 			},
 			to : {
-				height : dom.getHeight(),
+				height : height,
 				overflow : dom.getStyle('overflow')
 			}
 		});

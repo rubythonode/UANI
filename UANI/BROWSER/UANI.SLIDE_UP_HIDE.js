@@ -1,4 +1,10 @@
-UANI.SCROLL_UP = METHOD({
+UANI.SLIDE_UP_HIDE = METHOD({
+
+	statics : function(m) {'use strict';
+
+		// saved heights
+		m.savedHeights = {};
+	},
 
 	run : function(m, params, callback) {'use strict';
 		//REQUIRED: params
@@ -15,15 +21,22 @@ UANI.SCROLL_UP = METHOD({
 		// dom
 		dom = params.node.getDom(),
 
+		// origin height
+		originHeight = dom.getHeight(),
+
 		// params
 		params = COPY_DATA(params);
 
+		m.savedHeights[dom.id] = originHeight;
+
 		params.keyframes = KEYFRAMES({
 			from : {
-				height : dom.getHeight(),
+				marginTop : 0,
+				height : originHeight,
 				overflow : dom.getStyle('overflow')
 			},
 			to : {
+				marginTop : originHeight,
 				height : 0,
 				overflow : 'hidden'
 			}
