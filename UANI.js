@@ -59,8 +59,8 @@ BOOT({
 							style : {
 								fontSize : 50
 							},
-							children : [P({
-								children : ['FADE!!!']
+							c : [P({
+								c : ['FADE!!!']
 							})]
 						}).appendTo(wrapper);
 
@@ -79,8 +79,8 @@ BOOT({
 							style : {
 								fontSize : 50
 							},
-							children : [P({
-								children : ['SLIDE UP!!!']
+							c : [P({
+								c : ['SLIDE UP!!!']
 							})]
 						}).appendTo(wrapper);
 
@@ -99,8 +99,8 @@ BOOT({
 							style : {
 								fontSize : 50
 							},
-							children : [P({
-								children : ['SLIDE DOWN!!!']
+							c : [P({
+								c : ['SLIDE DOWN!!!']
 							})]
 						}).appendTo(wrapper);
 
@@ -119,8 +119,8 @@ BOOT({
 							style : {
 								fontSize : 50
 							},
-							children : [P({
-								children : ['SLIDE LEFT!!!']
+							c : [P({
+								c : ['SLIDE LEFT!!!']
 							})]
 						}).appendTo(wrapper);
 
@@ -139,8 +139,8 @@ BOOT({
 							style : {
 								fontSize : 50
 							},
-							children : [P({
-								children : ['SLIDE RIGHT!!!']
+							c : [P({
+								c : ['SLIDE RIGHT!!!']
 							})]
 						}).appendTo(wrapper);
 
@@ -161,14 +161,14 @@ BOOT({
 								fontSize : 50,
 								width : 800
 							},
-							children : [DIV({
+							c : [DIV({
 								style : {
 									width : 400,
 									background : 'red',
 									flt : 'left'
 								},
-								children : [P({
-									children : ['SLIDE']
+								c : [P({
+									c : ['SLIDE']
 								})]
 							}), DIV({
 								style : {
@@ -176,8 +176,8 @@ BOOT({
 									background : 'blue',
 									flt : 'left'
 								},
-								children : [P({
-									children : ['SLIDE']
+								c : [P({
+									c : ['SLIDE']
 								})]
 							}), CLEAR_BOTH()]
 						}).appendTo(wrapper);
