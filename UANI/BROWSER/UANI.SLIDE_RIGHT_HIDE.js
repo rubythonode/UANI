@@ -1,53 +1,61 @@
-UANI.SLIDE_RIGHT_HIDE = METHOD({
+UANI.SLIDE_RIGHT_HIDE = METHOD(function(m) {'use strict';
 
-	statics : function(m) {'use strict';
+	var
+	// saved widths
+	savedWidths = {},
 
-		// saved widths
-		m.savedWidths = {};
-	},
+	// get saved widths.
+	getSavedWidths;
 
-	run : function(m, params, callback) {'use strict';
-		//REQUIRED: params
-		//REQUIRED: params.node
-		//OPTIONAL: params.width
-		//OPTIONAL: params.duration
-		//OPTIONAL: params.timingFunction
-		//OPTIONAL: params.delay
-		//OPTIONAL: params.iterationCount
-		//OPTIONAL: params.direction
-		//OPTIONAL: params.playStateduration
-		//OPTIONAL: callback
+	m.getSavedWidths = getSavedWidths = function() {
+		return savedWidths;
+	};
 
-		var
-		// dom
-		dom = params.node.getDom(),
+	return {
 
-		// width
-		width = params.width,
+		run : function(params, callback) {
+			//REQUIRED: params
+			//REQUIRED: params.node
+			//OPTIONAL: params.width
+			//OPTIONAL: params.duration
+			//OPTIONAL: params.timingFunction
+			//OPTIONAL: params.delay
+			//OPTIONAL: params.iterationCount
+			//OPTIONAL: params.direction
+			//OPTIONAL: params.playStateduration
+			//OPTIONAL: callback
 
-		// origin width
-		originWidth = dom.getWidth(),
+			var
+			// dom
+			dom = params.node.getDom(),
 
-		// origin margin left
-		originMarginLeft = dom.getStyle('marginLeft'),
+			// width
+			width = params.width,
 
-		// params
-		params = COPY_DATA(params);
+			// origin width
+			originWidth = dom.getWidth(),
 
-		m.savedWidths[dom.id] = originWidth;
+			// origin margin left
+			originMarginLeft = dom.getStyle('marginLeft'),
 
-		params.keyframes = KEYFRAMES({
-			from : {
-				width : originWidth,
-				marginLeft : originMarginLeft === undefined ? 0 : originMarginLeft,
-				overflow : dom.getStyle('overflow')
-			},
-			to : {
-				marginLeft : width === undefined ? originWidth : width,
-				overflow : 'hidden'
-			}
-		});
+			// params
+			params = COPY_DATA(params);
 
-		ANIMATE(params, callback);
-	}
+			savedWidths[dom.id] = originWidth;
+
+			params.keyframes = KEYFRAMES({
+				from : {
+					width : originWidth,
+					marginLeft : originMarginLeft === undefined ? 0 : originMarginLeft,
+					overflow : dom.getStyle('overflow')
+				},
+				to : {
+					marginLeft : width === undefined ? originWidth : width,
+					overflow : 'hidden'
+				}
+			});
+
+			ANIMATE(params, callback);
+		}
+	};
 });

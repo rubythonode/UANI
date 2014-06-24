@@ -6,7 +6,7 @@ BOOT({
 	CONFIG : {
 		isDevMode : true
 	},
-	SERVER_CONFIG : {
+	NODE_CONFIG : {
 		isNotUsingDB : true
 	},
 	BROWSER_CONFIG : {
@@ -20,7 +20,7 @@ BOOT({
 						return VIEW;
 					},
 
-					init : function(cls, inner, self) {'use strict';
+					init : function(inner, self) {'use strict';
 
 						var
 						// wrapper

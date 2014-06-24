@@ -1,6 +1,6 @@
 UANI.SLIDE_DOWN_SHOW = METHOD({
 
-	run : function(m, params, callback) {'use strict';
+	run : function(params, callback) {'use strict';
 		//REQUIRED: params
 		//REQUIRED: params.node
 		//OPTIONAL: params.duration
@@ -22,7 +22,7 @@ UANI.SLIDE_DOWN_SHOW = METHOD({
 		params = COPY_DATA(params);
 
 		if (height === 0) {
-			height = UANI.SLIDE_DOWN_HIDE.savedHeights[dom.id];
+			height = UANI.SLIDE_DOWN_HIDE.getSavedHeights()[dom.id];
 		}
 
 		params.keyframes = KEYFRAMES({

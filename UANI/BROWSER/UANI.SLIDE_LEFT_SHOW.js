@@ -1,53 +1,61 @@
-UANI.SLIDE_LEFT_SHOW = METHOD({
+UANI.SLIDE_LEFT_SHOW = METHOD(function(m) {'use strict';
 
-	statics : function(m) {'use strict';
+	var
+	// saved margin lefts
+	savedMarginLefts = {},
 
-		// saved margin lefts
-		m.savedMarginLefts = {};
-	},
+	// get saved margin lefts.
+	getSavedMarginLefts;
 
-	run : function(m, params, callback) {'use strict';
-		//REQUIRED: params
-		//REQUIRED: params.node
-		//OPTIONAL: params.duration
-		//OPTIONAL: params.timingFunction
-		//OPTIONAL: params.delay
-		//OPTIONAL: params.iterationCount
-		//OPTIONAL: params.direction
-		//OPTIONAL: params.playStateduration
-		//OPTIONAL: callback
+	m.getSavedMarginLefts = getSavedMarginLefts = function() {
+		return savedMarginLefts;
+	};
 
-		var
-		// dom
-		dom = params.node.getDom(),
+	return {
 
-		// width
-		width = dom.getWidth(),
+		run : function(params, callback) {
+			//REQUIRED: params
+			//REQUIRED: params.node
+			//OPTIONAL: params.duration
+			//OPTIONAL: params.timingFunction
+			//OPTIONAL: params.delay
+			//OPTIONAL: params.iterationCount
+			//OPTIONAL: params.direction
+			//OPTIONAL: params.playStateduration
+			//OPTIONAL: callback
 
-		// margin left
-		marginLeft = dom.getStyle('marginLeft'),
+			var
+			// dom
+			dom = params.node.getDom(),
 
-		// params
-		params = COPY_DATA(params);
+			// width
+			width = dom.getWidth(),
 
-		if (width === 0) {
-			width = UANI.SLIDE_LEFT_HIDE.savedWidths[dom.id];
-		}
+			// margin left
+			marginLeft = dom.getStyle('marginLeft'),
 
-		m.savedMarginLefts[dom.id] = marginLeft;
+			// params
+			params = COPY_DATA(params);
 
-		params.keyframes = KEYFRAMES({
-			from : {
-				width : width,
-				marginLeft : marginLeft === undefined ? -width : marginLeft,
-				overflow : 'hidden'
-			},
-			to : {
-				marginLeft : 0,
-				overflow : dom.getStyle('overflow')
+			if (width === 0) {
+				width = UANI.SLIDE_LEFT_HIDE.getSavedWidths()[dom.id];
 			}
-		});
 
-		ANIMATE(params, callback);
-	}
+			savedMarginLefts[dom.id] = marginLeft;
+
+			params.keyframes = KEYFRAMES({
+				from : {
+					width : width,
+					marginLeft : marginLeft === undefined ? -width : marginLeft,
+					overflow : 'hidden'
+				},
+				to : {
+					marginLeft : 0,
+					overflow : dom.getStyle('overflow')
+				}
+			});
+
+			ANIMATE(params, callback);
+		}
+	};
 });

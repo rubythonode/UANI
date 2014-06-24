@@ -1,6 +1,6 @@
 UANI.FADE_IN = METHOD({
 
-	run : function(m, params, callback) {'use strict';
+	run : function(params, callback) {'use strict';
 		//REQUIRED: params
 		//REQUIRED: params.node
 		//OPTIONAL: params.duration

@@ -1,47 +1,55 @@
-UANI.SLIDE_UP_HIDE = METHOD({
+UANI.SLIDE_UP_HIDE = METHOD(function(m) {'use strict';
 
-	statics : function(m) {'use strict';
+	var
+	// saved heights
+	savedHeights = {},
 
-		// saved heights
-		m.savedHeights = {};
-	},
+	// get saved heights.
+	getSavedHeights;
 
-	run : function(m, params, callback) {'use strict';
-		//REQUIRED: params
-		//REQUIRED: params.node
-		//OPTIONAL: params.duration
-		//OPTIONAL: params.timingFunction
-		//OPTIONAL: params.delay
-		//OPTIONAL: params.iterationCount
-		//OPTIONAL: params.direction
-		//OPTIONAL: params.playStateduration
-		//OPTIONAL: callback
+	m.getSavedHeights = getSavedHeights = function() {
+		return savedHeights;
+	};
 
-		var
-		// dom
-		dom = params.node.getDom(),
+	return {
 
-		// origin height
-		originHeight = dom.getHeight(),
+		run : function(params, callback) {
+			//REQUIRED: params
+			//REQUIRED: params.node
+			//OPTIONAL: params.duration
+			//OPTIONAL: params.timingFunction
+			//OPTIONAL: params.delay
+			//OPTIONAL: params.iterationCount
+			//OPTIONAL: params.direction
+			//OPTIONAL: params.playStateduration
+			//OPTIONAL: callback
 
-		// params
-		params = COPY_DATA(params);
+			var
+			// dom
+			dom = params.node.getDom(),
 
-		m.savedHeights[dom.id] = originHeight;
+			// origin height
+			originHeight = dom.getHeight(),
 
-		params.keyframes = KEYFRAMES({
-			from : {
-				marginTop : 0,
-				height : originHeight,
-				overflow : dom.getStyle('overflow')
-			},
-			to : {
-				marginTop : originHeight,
-				height : 0,
-				overflow : 'hidden'
-			}
-		});
+			// params
+			params = COPY_DATA(params);
 
-		ANIMATE(params, callback);
-	}
+			savedHeights[dom.id] = originHeight;
+
+			params.keyframes = KEYFRAMES({
+				from : {
+					marginTop : 0,
+					height : originHeight,
+					overflow : dom.getStyle('overflow')
+				},
+				to : {
+					marginTop : originHeight,
+					height : 0,
+					overflow : 'hidden'
+				}
+			});
+
+			ANIMATE(params, callback);
+		}
+	};
 });

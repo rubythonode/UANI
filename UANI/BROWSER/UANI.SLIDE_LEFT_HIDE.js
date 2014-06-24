@@ -1,62 +1,70 @@
-UANI.SLIDE_LEFT_HIDE = METHOD({
+UANI.SLIDE_LEFT_HIDE = METHOD(function(m) {'use strict';
 
-	statics : function(m) {'use strict';
+	var
+	// saved widths
+	savedWidths = {},
 
-		// saved widths
-		m.savedWidths = {};
-	},
+	// get saved widths.
+	getSavedWidths;
 
-	run : function(m, params, callback) {'use strict';
-		//REQUIRED: params
-		//REQUIRED: params.node
-		//OPTIONAL: params.width
-		//OPTIONAL: params.duration
-		//OPTIONAL: params.timingFunction
-		//OPTIONAL: params.delay
-		//OPTIONAL: params.iterationCount
-		//OPTIONAL: params.direction
-		//OPTIONAL: params.playStateduration
-		//OPTIONAL: callback
+	m.getSavedWidths = getSavedWidths = function() {
+		return savedWidths;
+	};
 
-		var
-		// dom
-		dom = params.node.getDom(),
+	return {
 
-		// width
-		width = params.width,
+		run : function(params, callback) {
+			//REQUIRED: params
+			//REQUIRED: params.node
+			//OPTIONAL: params.width
+			//OPTIONAL: params.duration
+			//OPTIONAL: params.timingFunction
+			//OPTIONAL: params.delay
+			//OPTIONAL: params.iterationCount
+			//OPTIONAL: params.direction
+			//OPTIONAL: params.playStateduration
+			//OPTIONAL: callback
 
-		// margin left
-		marginLeft,
+			var
+			// dom
+			dom = params.node.getDom(),
 
-		// origin width
-		originWidth = dom.getWidth(),
+			// width
+			width = params.width,
 
-		// origin margin left
-		originMarginLeft = dom.getStyle('marginLeft'),
+			// margin left
+			marginLeft,
 
-		// params
-		params = COPY_DATA(params);
+			// origin width
+			originWidth = dom.getWidth(),
 
-		marginLeft = UANI.SLIDE_LEFT_SHOW.savedMarginLefts[dom.id];
+			// origin margin left
+			originMarginLeft = dom.getStyle('marginLeft'),
 
-		if (marginLeft === undefined) {
-			marginLeft = 0;
-		}
+			// params
+			params = COPY_DATA(params);
 
-		m.savedWidths[dom.id] = originWidth;
+			marginLeft = UANI.SLIDE_LEFT_SHOW.getSavedMarginLefts()[dom.id];
 
-		params.keyframes = KEYFRAMES({
-			from : {
-				width : originWidth,
-				marginLeft : originMarginLeft === undefined ? 0 : originMarginLeft,
-				overflow : 'hidden'
-			},
-			to : {
-				marginLeft : -(width === undefined ? originWidth : width) - marginLeft,
-				overflow : 'hidden'
+			if (marginLeft === undefined) {
+				marginLeft = 0;
 			}
-		});
 
-		ANIMATE(params, callback);
-	}
+			savedWidths[dom.id] = originWidth;
+
+			params.keyframes = KEYFRAMES({
+				from : {
+					width : originWidth,
+					marginLeft : originMarginLeft === undefined ? 0 : originMarginLeft,
+					overflow : 'hidden'
+				},
+				to : {
+					marginLeft : -(width === undefined ? originWidth : width) - marginLeft,
+					overflow : 'hidden'
+				}
+			});
+
+			ANIMATE(params, callback);
+		}
+	};
 });
